@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rossmann Sales Prediction | Landing Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+    <div class="landing-container">
+        <div class="background-image">
+            <div class="fallback-text">ROSSMANN</div>
+        </div>
+        <div class="content-section">
+                    <div id="banner">
+                        <div id="banner-name">
+                            <img id="banner-img"src="{{ url_for('static', filename='images/banner/banner.png') }}" width="354" height="83" alt="Rossmann Sales Prediction"/>
+                        </div>
+                    </div>
+            <h1 class="main-title">App web : Prévisions de ventes</h1>
+            <div class="academic-info">
+                <p>
+                    Cette application web repose sur des techniques de
+                    <strong>Machine Learning</strong> et de
+                    <strong>Data Science</strong> afin de prédire les ventes futures
+                    des magasins Rossmann à partir de données historiques.
+                </p>
+                <p>
+                    Le modèle exploite plusieurs facteurs tels que les promotions,
+                    la concurrence, les jours fériés et les tendances saisonnières
+                    afin de fournir des estimations fiables et exploitables.
+                </p>
+            </div>
+            <div class="buttons-container">
+                <a href="{{ url_for('predict') }}" class="btn btn-predict">Page de prédiction</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-dashboard">Visualisation Dashboard</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

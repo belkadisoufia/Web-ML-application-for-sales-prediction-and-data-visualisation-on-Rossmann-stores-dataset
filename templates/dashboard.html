@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rossmann Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================
+           STYLE INSPIRÉ DE LANDING.CSS ET STYLE.CSS
+        ============================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sofia Sans', 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('/static/images/ross2.jpg') center center fixed;
+            background-size: cover;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        /* ============================
+           BOUTON RETOUR À L'ACCUEIL
+        ============================ */
+        #back-button-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: rgba(201, 31, 32, 0.7);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: rgba(165, 24, 25, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button-icon {
+            font-size: 16px;
+        }
+
+        /* ============================
+           CONTENEUR PRINCIPAL
+        ============================ */
+        .dashboard-container {
+            width: 1300px;
+            max-width: 95%;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 40px 0;
+        }
+
+        /* ============================
+           BANNER
+        ============================ */
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 180px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .banner-name {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
+        .banner-name img {
+            width: 354px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .banner-blob {
+            display: flex;
+            align-items: center;
+        }
+
+        .banner-blob img {
+            width: 184px;
+            height: auto;
+            opacity: 0.7;
+        }
+
+        /* ============================
+           HEADER SECTION
+        ============================ */
+        .dashboard-header {
+            background: rgba(201, 31, 32, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid rgba(201, 31, 32, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .dashboard-header p {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* ============================
+           CARDS GRID
+        ============================ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c91f20, transparent);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #c91f20;
+            text-shadow: 0 0 10px rgba(201, 31, 32, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .card p {
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* ============================
+           BOUTONS
+        ============================ */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: #c91f20;
+            color: white;
+            box-shadow: 0 4px 15px rgba(201, 31, 32, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #a0191a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 31, 32, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #c91f20;
+            border-color: #c91f20;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c91f20;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ============================
+           INFO BOX
+        ============================ */
+        .info-box {
+            background: rgba(201, 31, 32, 0.15);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .info-box h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-box h4 {
+            font-size: 1.3rem;
+            color: #c91f20;
+            margin: 20px 0 10px;
+        }
+
+        .info-box ol, .info-box ul {
+            margin-left: 25px;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        .info-box code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #c91f20;
+            font-size: 0.95rem;
+        }
+
+        /* ============================
+           API SECTION (simplifiée)
+        ============================ */
+        .api-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .api-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .api-card h4 {
+            color: #c91f20;
+            margin-bottom: 10px;
+        }
+
+        .api-card p {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .api-card .endpoint {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #ffaeae;
+        }
+
+        /* ============================
+           FOOTER
+        ============================ */
+        .dashboard-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(151, 12, 12, 0.4);
+            border-radius: 10px;
+            padding: 15px 25px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-text {
+            font-size: 1.2rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        #footer-text-created {
+            color: #ffaeae;
+            font-weight: 300;
+        }
+
+        #footer-text-name {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .footer-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-icons a img {
+            transition: transform 0.3s ease;
+            filter: brightness(1.2);
+        }
+
+        .footer-icons a:hover img {
+            transform: scale(1.2);
+            filter: brightness(1.5);
+        }
+
+        /* ============================
+           RESPONSIVE
+        ============================ */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                padding: 25px;
+            }
+
+            .banner-blob {
+                display: none;
+            }
+
+            .banner {
+                justify-content: center;
+            }
+
+            .dashboard-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #back-button-container {
+                top: 10px;
+                left: 10px;
+            }
+
+            .back-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .dashboard-container {
+                padding: 20px;
+                margin: 60px 0 20px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card h3 {
+                font-size: 1.5rem;
+            }
+
+            .info-box h3 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .api-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .dashboard-header {
+                padding: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+
+        /* ============================
+           UTILS
+        ============================ */
+        .small-text {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- BOUTON RETOUR À L'ACCUEIL -->
+    <div id="back-button-container">
+        <a href="{{ url_for('landing') }}" class="back-button">
+            <span class="back-button-icon">←</span>
+            Retour à l'accueil
+        </a>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- BANNER -->
+        <div class="banner">
+            <div class="banner-blob">
+                <img src="{{ url_for('static', filename='images/banner/top_left_blob.png') }}" alt="Blob">
+            </div>
+            <div class="banner-name">
+                <img src="{{ url_for('static', filename='images/banner/banner.png') }}" alt="Rossmann Sales Prediction">
+            </div>
+            <div class="banner-blob">
+                <img src="{{ url_for('static', filename='images/banner/bottom_right_blob.png') }}" alt="Blob">
+            </div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="dashboard-header">
+            <h1>Visualisation Dashboard</h1>
+            <p>Explorez les performances de vos magasins à travers des visualisations interactives et des analyses approfondies. Accédez à votre dashboard Power BI directement depuis cette interface.</p>
+        </div>
+
+        <!-- CARDS -->
+        <div class="cards-grid">
+            <!-- CARD 1: Télécharger le Dashboard -->
+            <div class="card">
+                <div class="card-icon">📥</div>
+                <h3>Télécharger</h3>
+                <p>Téléchargez le fichier Power BI pour explorer les données en détail sur votre ordinateur.</p>
+                <a href="{{ url_for('download_dashboard') }}" class="btn btn-primary">
+                    ⬇️ Dashboard_Rossmann.pbx
+                </a>
+                <p class="small-text" style="margin-top: 15px;">Fichier: 6.22 Mo • Mis à jour le 05/02/2026</p>
+            </div>
+                        <!-- Carte pour le Dashboard Live -->
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Dashboard Live</h3>
+                <p>Visualisez le dashboard interactif avec les Top 10 stores, ventes par année et analyses en temps réel.</p>
+                <a href="{{ url_for('dashboard_live') }}" class="btn btn-secondary">
+                    📈 Voir le Dashboard Live
+                </a>
+            </div>
+            <!-- CARD 2: Prédiction -->
+            <div class="card">
+                <div class="card-icon">🔮</div>
+                <h3>Prédiction</h3>
+                <p>Retournez à la page de prédiction pour générer de nouvelles prévisions de ventes.</p>
+                    <a href="{{ url_for('predict') }}" class="btn btn-outline">
+                        📈 Faire une prédiction
+                    </a>
+            </div>
+        </div>
+
+        <!-- INFO BOX: Comment utiliser Power BI -->
+        <div class="info-box">
+            <h3>🔗 Connexion avec Power BI</h3>
+            
+            <div class="api-section">
+                <!-- Option 1: Fichier Excel -->
+                <div class="api-card">
+                    <h4>📥 Option 1: Fichier Excel</h4>
+                    <p>1. Téléchargez le fichier .pbx avec le bouton ci-dessus</p>
+                    <p>2. Ouvrez-le avec Power BI Desktop</p>
+                    <p>3. Les données sont incluses dans le fichier</p>
+                    <div class="endpoint">📁 Dashboard_Rossmann.pbx</div>
+                </div>
+
+                <!-- Option 2: Service API (uniquement l'URL, sans bouton) -->
+                <div class="api-card">
+                    <h4>🌐 Option 2: Service API</h4>
+                    <p>1. Dans Power BI: Obtenir des données → Web</p>
+                    <p>2. Entrez l'URL de l'API</p>
+                    <p>3. Authentification: Anonyme</p>
+                    <div class="endpoint">http://127.0.0.1:5000/api/sales_data</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="dashboard-footer">
+            <div class="footer-content">
+                <span class="footer-text" id="footer-text-created">Rossmann</span>
+                <span class="footer-text" id="footer-text-name">Sales Prediction</span>
+            </div>
+            <div class="footer-icons">
+                <a href="https://github.com/sbelkadi2283-lang" target="_blank">
+                    <img src="{{ url_for('static', filename='images/icons/github_icon.png') }}" width="20" height="20" alt="Github">
+                </a>
+                <span style="color: rgba(255,255,255,0.3);">|</span>
+                <span style="color: #e0e0e0;">v2.0</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

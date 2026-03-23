@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rossmann Sales Prediction</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- BOUTON DE RETOUR À L'ACCUEIL -->
+    <div id="back-button-container">
+        <a href="{{ url_for('landing') }}" class="back-button">
+            <span class="back-button-icon">←</span>
+            Retour à l'accueil
+        </a>
+    </div>
+    
+    <div class="background-image"></div>
+    
+    <div class="container" id="main-container">
+        <div id="banner">
+            <div class="banner-blob" id="banner-top-left-blob">
+                <img src="{{ url_for('static', filename='images/banner/top_left_blob.png') }}" width="184" height="124" alt="Top-left Blob"/>
+            </div>
+            <div id="banner-name">
+                <img id="banner-img"src="{{ url_for('static', filename='images/banner/banner.png') }}" width="354" height="83" alt="Rossmann Sales Prediction"/>
+            </div>
+            <div class="banner-blob" id="banner-bottom-right-blob">
+                <img src="{{ url_for('static', filename='images/banner/bottom_right_blob.png') }}" width="184" height="124" alt="Bottom-right Blob"/>
+            </div>
+        </div>
+        <div id="content">
+            <div id="description">
+                <div class="description-box">
+                    <p class="description-text" id="description-application">
+                        Cette application utilise un modèle XGBoost de haute performance, entraîné sur les données historiques de Rossmann, pour prédire les ventes futures des magasins. En analysant les promotions, la concurrence et les tendances saisonnières, l'algorithme fournit des prévisions de revenus précises afin de soutenir une gestion commerciale basée sur les données.
+                    </p>
+                </div>
+            </div>
+            <div id="predictor">
+                <form method="post" action="/predict_api" class="predictor-flex">
+                    <div class="top-row" id="store-selector">
+                        <div class="header">ID Magasin</div>
+                        <select name="store-selector-form" class="inp" id="store-selection-list">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <div class="rounded-border top-box"></div>
+                    </div>
+                    <div class="top-row" id="from-date-selector">
+                        <div class="header">De</div>
+                        <input name="from-date-form" id="from-date-selector-input" type="date" required class="inp datepicker">
+                        <div class="rounded-border top-box"></div>
+                    </div>
+                    <div class="top-row" id="to-date-selector">
+                        <div class="header">À</div>
+                        <input name="to-date-form" id="to-date-selector-input" type="date" required class="inp datepicker">
+                        <div class="rounded-border top-box"></div>
+                    </div>
+                    <div class="top-row" id="top-row-button">
+                        <button id="predict-button" type="submit">Predict</button> 
+                    </div>
+                </form>
+                <div class="predictor-flex">
+                    <div class="middle-row" id="total-sales-display">
+                        <div class="header">Nombre total des ventes</div>
+                        <p class="inp sales-indicator" id="total-sales-indicator">{{total}}</p>
+                        <div class="rounded-border middle-box"></div>
+                    </div>
+                    <div class="middle-row" id="average-sales-display">
+                        <div class="header">Nombre moyen des ventes</div>
+                        <p class="inp sales-indicator" id="avg-sales-indicator">{{average}}</p>
+                        <div class="rounded-border middle-box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="footer-description">
+                <div class="footer-content">
+                    <p class="footer-text" id="footer-text-created">Rossmann</p>
+                    <p class="footer-text" id="footer-text-name">Sales Prediction</p>
+                </div>
+            </div>
+            <div id="footer-icons">
+                <div id="footer-link">
+                    <a href="https://github.com/sbelkadi2283-lang">
+                        <img src="{{ url_for('static', filename='images/icons/github_icon.png') }}" width="20" height="20" alt="Github Link"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='script/script.js') }}"></script>
+</body>
+</html>
